@@ -9,7 +9,7 @@
 
 //IP
 #define ONVIF_UDP_IP "239.255.255.250"
-#define ONVIF_TCP_IP "192.168.254.129"
+#define ONVIF_TCP_IP "192.168.1.66"
 
 /*
 * @brief 获取设备的IP地址，可以获取ipv4或者ipv6地址

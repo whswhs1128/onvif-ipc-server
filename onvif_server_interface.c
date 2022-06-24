@@ -782,6 +782,7 @@ SOAP_FMAC5 int SOAP_FMAC6 __tds__GetCapabilities(struct soap* soap, struct _tds_
 		tds__GetCapabilitiesResponse->Capabilities->Media->StreamingCapabilities->RTP_USCORETCP = (enum xsd__boolean *)soap_malloc(soap, sizeof(enum xsd__boolean));
 		*(tds__GetCapabilitiesResponse->Capabilities->Media->StreamingCapabilities->RTP_USCORETCP) = xsd__boolean__true_;
 	}
+	//tds__GetCapabilitiesResponse->Capabilities->Extension->DeviceIO->VideoSources = (enum xsd__boolean)1;
 	return SOAP_OK;
 }
 /** Web service operation '__tds__SetDPAddresses' implementation, should return SOAP_OK or error code */
@@ -1273,7 +1274,29 @@ SOAP_FMAC5 int SOAP_FMAC6 __trt__GetStreamUri(struct soap* soap,
 						struct _trt__GetStreamUri *trt__GetStreamUri, 
 						struct _trt__GetStreamUriResponse *trt__GetStreamUriResponse)
 {
-	return SOAP_OK;
+//	memset(trt__GetStreamUriResponse->MediaUri, 0, sizeof(struct tt__MediaUri));
+//        trt__GetStreamUriResponse->MediaUri->Uri = (char *)soap_malloc(soap, sizeof(char) * 3);
+//        memset(trt__GetStreamUriResponse->MediaUri->Uri, '\0', sizeof(char) * 3);
+//        //根据各个设备的rtsp协议的uri不一样填写对应的值
+//        strncpy(trt__GetStreamUriResponse->MediaUri->Uri, "rtsp://192.168.1.66:554/live.sdp", sizeof("rtsp://192.168.1.66:554/live.sdp"));
+//        trt__GetStreamUriResponse->MediaUri->InvalidAfterConnect = (enum xsd__boolean)0;
+//        trt__GetStreamUriResponse->MediaUri->InvalidAfterReboot  = (enum xsd__boolean)0;
+//        //超时时间
+//        trt__GetStreamUriResponse->MediaUri->Timeout = 300;
+//	return SOAP_OK;
+	printf("get stream uri......\n");
+    trt__GetStreamUriResponse->MediaUri = (struct tt__MediaUri *)soap_malloc(soap, sizeof(struct tt__MediaUri));
+    memset(trt__GetStreamUriResponse->MediaUri, 0, sizeof(struct tt__MediaUri));
+
+    trt__GetStreamUriResponse->MediaUri->Uri = (char *)soap_malloc(soap, sizeof(char) * 100);
+    memset(trt__GetStreamUriResponse->MediaUri->Uri, '\0', sizeof(char) * 100);
+    //根据各个设备的rtsp协议的uri不同填写对应的值
+	strncpy(trt__GetStreamUriResponse->MediaUri->Uri, "rtsp://192.168.1.66:554/live.sdp", sizeof(char) * 100);  
+    trt__GetStreamUriResponse->MediaUri->InvalidAfterConnect = xsd__boolean__true_;
+    trt__GetStreamUriResponse->MediaUri->InvalidAfterReboot  = xsd__boolean__true_;
+    //超时时间
+    trt__GetStreamUriResponse->MediaUri->Timeout = 0;
+	return 0;
 }
 /** Web service operation '__trt__StartMulticastStreaming' implementation, should return SOAP_OK or error code */
 SOAP_FMAC5 int SOAP_FMAC6 __trt__StartMulticastStreaming(struct soap* soap, struct _trt__StartMulticastStreaming *trt__StartMulticastStreaming, struct _trt__StartMulticastStreamingResponse *trt__StartMulticastStreamingResponse){return SOAP_OK;}
