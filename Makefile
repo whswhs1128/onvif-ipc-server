@@ -1,7 +1,7 @@
 GSOAP_ROOT = ./
 ##### Change the following for your environment:
 CROSS_COMPILE?=         arm-gcc6.3-linux-uclibceabi-
-COMPILE_OPTS =          $(INCLUDES) -I /home/ubuntu/work/cross_compiling/include -L /home/ubuntu/work/cross_compiling/lib -I ./ -lm
+COMPILE_OPTS =          $(INCLUDES) -I ./cross_compile/include -L ./cross_compile/lib64 -I ./ -lm
 #COMPILE_OPTS +=         -L /home/ubuntu/work/cross_compiling/lib/libssl.a
 #COMPILE_OPTS +=         -L /home/ubuntu/work/cross_compiling/lib/libcrypto.a
 C =                     
