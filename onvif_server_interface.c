@@ -1289,9 +1289,12 @@ SOAP_FMAC5 int SOAP_FMAC6 __trt__GetStreamUri(struct soap* soap,
     memset(trt__GetStreamUriResponse->MediaUri, 0, sizeof(struct tt__MediaUri));
 
     trt__GetStreamUriResponse->MediaUri->Uri = (char *)soap_malloc(soap, sizeof(char) * 100);
-    memset(trt__GetStreamUriResponse->MediaUri->Uri, '\0', sizeof(char) * 100);
-    //根据各个设备的rtsp协议的uri不同填写对应的值
-	strncpy(trt__GetStreamUriResponse->MediaUri->Uri, "rtsp://192.168.1.66:554/live.sdp", sizeof(char) * 100);  
+//    memset(trt__GetStreamUriResponse->MediaUri->Uri, '\0', sizeof(char) * 100);
+//    //根据各个设备的rtsp协议的uri不同填写对应的值
+//	strncpy(trt__GetStreamUriResponse->MediaUri->Uri, "rtsp://192.168.1.66:554/live.sdp", sizeof(char) * 100);  
+    
+    memset(trt__GetStreamUriResponse->MediaUri->Uri, 0, sizeof(char)* 100);
+    sprintf(trt__GetStreamUriResponse->MediaUri->Uri, "rtsp://%s:%d/live.sdp", ONVIF_TCP_IP, ONVIF_TCP_PORT);	
     trt__GetStreamUriResponse->MediaUri->InvalidAfterConnect = xsd__boolean__true_;
     trt__GetStreamUriResponse->MediaUri->InvalidAfterReboot  = xsd__boolean__true_;
     //超时时间
